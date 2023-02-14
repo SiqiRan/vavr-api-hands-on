@@ -8,11 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 public class Part02VavrFunctionTest {
-    Function2<Integer, Integer, Integer> sum = (a, b) -> a + b;
 
     @Test
     void should_return_multiplying_after_plus_one() {
-        assertEquals(Part02VavrFunction.composition(), 6);
+        assertEquals(Part02VavrFunction.composition().apply(2), 6);
     }
 
     @Test
@@ -21,8 +20,6 @@ public class Part02VavrFunctionTest {
         assertEquals(Option.some(2), Part02VavrFunction.safeDivide().apply(4, 2));
     }
 
-    //Partial Application
-
     @Test
     void should_return_apply_parameters_one_by_one() {
         assertEquals(15, Part02VavrFunction.addTen().apply(5));
@@ -30,10 +27,8 @@ public class Part02VavrFunctionTest {
 
     @Test
     void should_return_curried_applied_answer() {
-        assertEquals(Part02VavrFunction.addCurriedFunction().apply(2).apply(2), 6);
+        assertEquals(Part02VavrFunction.addByTwoCurriedFunction().apply(2).apply(2), 6);
     }
-
-    //Memoization
 
     Function0<Double> hashCache = Part02VavrFunction.memoization();
 
