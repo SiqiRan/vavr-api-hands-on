@@ -27,7 +27,7 @@ public class Part02VavrFunctionTest {
 
     @Test
     void should_return_curried_applied_answer() {
-        assertEquals(Part02VavrFunction.addByTwoCurriedFunction().apply(2).apply(2), 6);
+        assertEquals(Part02VavrFunction.addCurriedFunction().apply(2).apply(2), 6);
     }
 
     Function0<Double> hashCache = Part02VavrFunction.memoization();

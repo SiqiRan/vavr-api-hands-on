@@ -14,13 +14,13 @@ public class Part02VavrFunction {
 
     }
 
-    public static Integer composition() {
+    public static Function1<Integer, Integer> composition() {
         Function1<Integer, Integer> plusOne = a -> a + 1;
         Function1<Integer, Integer> multiplyByTwo = a -> a * 2;
         /* todo: use plusOne and multiplyByTwo to compose a new function which can add one to the input
         then multiply by two as return value.
         use compose() to a finish this.*/
-        return 0;
+        return null;
     }
 
 
@@ -42,9 +42,9 @@ public class Part02VavrFunction {
     }
 
     public static Function1<Integer, Function1<Integer, Integer>> addCurriedFunction() {
-        Function3<Integer, Integer, Integer, Integer> sumByThreeNumbers = (a, b, c) -> a + b + c;
+        Function3<Integer, Integer, Integer, Integer> addByTwoCurriedFunction = (a, b, c) -> a + b + c;
         /* todo: convert the sumByThreeNumbers function to a function which will accept one parameter and
-        return a function which will also accept one parameter then return a integer.
+        add two to it then return a function which will also accept one parameter then return a integer.
         use curried() and apply() to do this.*/
         return null;
     }

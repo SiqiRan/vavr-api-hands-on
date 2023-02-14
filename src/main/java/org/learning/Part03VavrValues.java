@@ -16,13 +16,12 @@ public class Part03VavrValues {
 
     }
 
-
     public static Optional<String> maybeFoo() {
         //todo: return an optional object containing a string "foo" using java's api.
         return null;
     }
 
-    public static Boolean isMaybeFooBarOptinalPresent() {
+    public static Boolean isMaybeFooBarOptionalPresent() {
         Optional<String> maybeFoo = Optional.of("foo");
         Optional<String> maybeFooBar = maybeFoo.map(item -> (String) null).map(String::toUpperCase);
         //todo: return true/false to determine if the maybeFooBar optional is present.
