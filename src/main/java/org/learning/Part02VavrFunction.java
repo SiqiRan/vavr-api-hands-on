@@ -20,7 +20,7 @@ public class Part02VavrFunction {
         /* todo: use plusOne and multiplyByTwo to compose a new function which can add one to the input
         then multiply by two as return value.
         use compose() to a finish this.*/
-        return null;
+        return multiplyByTwo.compose(plusOne);
     }
 
 
@@ -29,7 +29,7 @@ public class Part02VavrFunction {
         /* todo: convert the initial divide function to a total function which will accept infeasible parameters
         and return None or Some according to the input.
         use lift() to a finish this.*/
-        return null;
+        return Function2.lift(divide);
     }
 
 
@@ -38,7 +38,7 @@ public class Part02VavrFunction {
         /* todo: convert the sumByThreeNumbers function to a function which accepts one parameter and behave
         as adding ten to the input.
         use apply() to do this.*/
-        return null;
+        return sumByThreeNumbers.apply(5, 5);
     }
 
     public static Function1<Integer, Function1<Integer, Integer>> addCurriedFunction() {
@@ -46,7 +46,7 @@ public class Part02VavrFunction {
         /* todo: convert the sumByThreeNumbers function to a function which will accept one parameter and
         add two to it then return a function which will also accept one parameter then return a integer.
         use curried() and apply() to do this.*/
-        return null;
+        return addByTwoCurriedFunction.curried().apply(2);
     }
 
     public static Function0<Double> memoization() {
@@ -54,6 +54,6 @@ public class Part02VavrFunction {
         /* todo: convert this random number function to function which will give the exactly same answer
         for every apply.
         use memoized() to do this.*/
-        return randomNumber;
+        return randomNumber.memoized();
     }
 }

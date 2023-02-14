@@ -18,14 +18,14 @@ public class Part03VavrValues {
 
     public static Optional<String> maybeFoo() {
         //todo: return an optional object containing a string "foo" using java's api.
-        return null;
+        return Optional.of("foo");
     }
 
     public static Boolean isMaybeFooBarOptionalPresent() {
         Optional<String> maybeFoo = Optional.of("foo");
         Optional<String> maybeFooBar = maybeFoo.map(item -> (String) null).map(String::toUpperCase);
         //todo: return true/false to determine if the maybeFooBar optional is present.
-        return null;
+        return false;
     }
 
     public static Integer willVavrOptionMapThrowException() {
@@ -36,7 +36,7 @@ public class Part03VavrValues {
             maybeFooVavr.map(s -> (String) null).map(s -> s.toUpperCase() + "bar");
             return 0;
         } catch (NullPointerException e) {
-            return 0;
+            return 1;
         }
     }
 
@@ -46,7 +46,7 @@ public class Part03VavrValues {
             Option<String> maybeFooBarVavr = maybeFooVavr.map(s -> (String) null)
                     .flatMap(Option::of)
                     .map(s -> s.toUpperCase() + "bar");
-            return 0;
+            return 1;
         } catch (NullPointerException e) {
             return 0;
         }
@@ -57,7 +57,7 @@ public class Part03VavrValues {
         try {
             Option<String> maybeFooBarVavr = maybeFooVavr.flatMap(s -> Option.of((String) null))
                     .map(s -> s.toUpperCase() + "bar");
-            return 0;
+            return 1;
         } catch (NullPointerException e) {
             return 0;
         }
@@ -67,14 +67,14 @@ public class Part03VavrValues {
         Function1<Integer, Integer> workMayThrowException = (a) -> 2 / a;
         //todo: calculate 2/0 without throw any exception.
         //use Try to do this.
-        return null;
+        return Try.of(() -> workMayThrowException.apply(0));
     }
 
 
     public static Lazy<Double> lazyRandom() {
         //todo: return Lazy object to generate a random number.
         //use Lazy to do this. And be sure to use Math.random() instead of hard-coded number.
-        return null;
+        return Lazy.of(Math::random);
     }
 
 
@@ -83,6 +83,10 @@ public class Part03VavrValues {
         //when the raw mark is greater than (including equal to) 80, should return the mark.
         //when the raw makr is lower than 80, should return a String: sorry, you didn't get a high distinction score.
         //use Either to do this.
-        return null;
+        if (rawMark >= 80) {
+            return Either.right(rawMark);
+        } else {
+            return Either.left("sorry, you didn't get a high distinction score.");
+        }
     }
 }
