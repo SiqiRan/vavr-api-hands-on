@@ -8,11 +8,11 @@ import io.vavr.control.Try;
 
 import java.util.Optional;
 
-public class VavrValues {
+public class Part03VavrValues {
 
     static Option<String> maybeFooVavr = Option.of("foo");
 
-    private VavrValues() {
+    private Part03VavrValues() {
 
     }
 

@@ -4,8 +4,8 @@ import io.vavr.Tuple;
 import io.vavr.Tuple2;
 import io.vavr.Tuple3;
 
-public class VavrTuple {
-    private VavrTuple() {
+public class Part01VavrTuple {
+    private Part01VavrTuple() {
 
     }
 

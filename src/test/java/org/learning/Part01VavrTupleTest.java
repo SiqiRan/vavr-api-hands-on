@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class VavrTupleTest {
-    Tuple3<String, String, String> testTupleCreation = VavrTuple.createTuple();
+public class Part01VavrTupleTest {
+    Tuple3<String, String, String> testTupleCreation = Part01VavrTuple.createTuple();
 
     @Test
     void should_return_tuple_Results() {
@@ -19,7 +19,7 @@ public class VavrTupleTest {
 
     Tuple2<String, Integer> java8 = Tuple.of("java", 8);
 
-    Tuple2<String, Integer> transformComponentWise = VavrTuple.transformComponentWise();
+    Tuple2<String, Integer> transformComponentWise = Part01VavrTuple.transformComponentWise();
 
     @Test
     void should_return_transformed_result() {
@@ -27,7 +27,7 @@ public class VavrTupleTest {
         assertEquals(transformComponentWise._2, 1);
     }
 
-    Tuple2<String, Integer> transformUsingMapper = VavrTuple.transformUsingMapper();
+    Tuple2<String, Integer> transformUsingMapper = Part01VavrTuple.transformUsingMapper();
 
     @Test
     void should_return_same_result() {
@@ -35,7 +35,7 @@ public class VavrTupleTest {
         assertEquals(transformUsingMapper._2, 1);
     }
 
-    String transformATupleToString = VavrTuple.transformToString();
+    String transformATupleToString = Part01VavrTuple.transformToString();
 
     @Test
     void should_return_string_from_tuple() {

@@ -3,7 +3,7 @@ package org.learning;
 import io.vavr.collection.Seq;
 import io.vavr.control.Validation;
 
-public class PersonValidator {
+public class Part04PersonValidator {
     private static final String VALID_NAME_CHARS = "[a-zA-Z ]";
     private static final int MIN_AGE = 0;
 

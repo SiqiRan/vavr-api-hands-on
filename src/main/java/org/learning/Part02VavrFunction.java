@@ -6,11 +6,11 @@ import io.vavr.Function2;
 import io.vavr.Function3;
 import io.vavr.control.Option;
 
-public class VavrFunction {
+public class Part02VavrFunction {
 
     Function2<Integer, Integer, Integer> sum = (a, b) -> a + b;
 
-    private VavrFunction() {
+    private Part02VavrFunction() {
 
     }
 
