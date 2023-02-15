@@ -14,7 +14,7 @@ public class Part03VavrValuesTest {
 
     @Test
     void should_not_be_present() {
-        assertNotEquals(Boolean.TRUE, Part03VavrValues.isMaybeFooBarOptionalPresent());
+        assertEquals(false, Part03VavrValues.isMaybeFooBarOptionalPresent());
     }
 
     @Test
