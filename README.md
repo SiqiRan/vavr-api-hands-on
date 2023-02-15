@@ -1,6 +1,6 @@
 This is a repo for practicing vavr api.
 
-It's based on the vavr user guide [vavr user guide](https://docs.vavr.io/).
+It's based on the [vavr user guide](https://docs.vavr.io/).
 
 The test files are in the test folder. Finish the tasks in src folder to make them all pass.
 
