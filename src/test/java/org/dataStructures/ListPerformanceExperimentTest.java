@@ -18,6 +18,6 @@ class ListPerformanceExperimentTest {
     @Test
     void shouldGenerateList() {
         ListPerformanceExperiment listExperiment = new ListPerformanceExperiment();
-        listExperiment.insertionEfficiency();
+        listExperiment.performance();
     }
 }
