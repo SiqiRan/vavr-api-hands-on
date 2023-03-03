@@ -3,6 +3,8 @@ package org.experiment;
 import io.vavr.collection.List;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +17,8 @@ public class ListPerformanceExperiment {
     private java.util.List<String> arrayList = new ArrayList<>(Arrays.asList("one", "two", "three"));
     private java.util.List<String> linkedList = new LinkedList<>(Arrays.asList("one", "two", "three"));
 
+    private static Logger logger = LogManager.getLogger(ListPerformanceExperiment.class);
+
     public void insertionEfficiency() {
         long n = 1000;
         long startTime = System.nanoTime();
@@ -24,7 +28,7 @@ public class ListPerformanceExperiment {
         }
         long endTime = System.nanoTime();
         long totalTime = endTime - startTime;
-        System.out.println(totalTime);
+        logger.info("VavrList " + totalTime);
 
         startTime = System.nanoTime();
         for (int i = 0; i < n; i++) {
@@ -33,7 +37,7 @@ public class ListPerformanceExperiment {
         }
         endTime = System.nanoTime();
         totalTime = endTime - startTime;
-        System.out.println(totalTime);
+        logger.info("ArrayList " + totalTime);
         //10000 times insertion in javaList
 
         startTime = System.nanoTime();
@@ -43,6 +47,6 @@ public class ListPerformanceExperiment {
         }
         endTime = System.nanoTime();
         totalTime = endTime - startTime;
-        System.out.println(totalTime);
+        logger.info("LinkedList " + totalTime);
     }
 }
