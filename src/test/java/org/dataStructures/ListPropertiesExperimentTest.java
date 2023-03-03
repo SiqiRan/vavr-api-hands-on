@@ -1,6 +1,7 @@
 package org.dataStructures;
 
 import io.vavr.collection.List;
+import org.apache.log4j.Logger;
 import org.experiment.ListPropertiesExperiment;
 import org.experiment.entity.Father;
 import org.experiment.entity.Mother;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class ListPropertiesExperimentTest {
+    public static Logger logger = Logger.getLogger(ListPropertiesExperimentTest.class);
 
     @Test
     void testTypeSafety() {
@@ -20,7 +22,7 @@ class ListPropertiesExperimentTest {
             List<Parent> vavrList = listPropertiesExperiment.getVavrList();
             vavrList = vavrList.append(new Mother());
             vavrList = vavrList.append(new Father());
-            System.out.println(vavrList.combinations());
+            logger.info(vavrList.combinations());
         } catch (Exception e) {
             fail();
         }
