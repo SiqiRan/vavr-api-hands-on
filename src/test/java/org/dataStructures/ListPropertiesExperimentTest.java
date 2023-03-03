@@ -1,9 +1,10 @@
 package org.dataStructures;
 
 import io.vavr.collection.List;
-import org.dataStructures.entity.Father;
-import org.dataStructures.entity.Mother;
-import org.dataStructures.entity.Parent;
+import org.experiment.ListPropertiesExperiment;
+import org.experiment.entity.Father;
+import org.experiment.entity.Mother;
+import org.experiment.entity.Parent;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ class ListPropertiesExperimentTest {
     void testTypeSafety() {
         ListPropertiesExperiment listPropertiesExperiment = new ListPropertiesExperiment();
         try {
-            List<Parent> vavrList = listPropertiesExperiment.vavrList;
+            List<Parent> vavrList = listPropertiesExperiment.getVavrList();
             vavrList = vavrList.append(new Mother());
             vavrList = vavrList.append(new Father());
             System.out.println(vavrList.combinations());
@@ -31,6 +32,7 @@ class ListPropertiesExperimentTest {
             java.util.List<Mother> mothers = new ArrayList<>();
             //next line of code will trigger compiler error
             //java.util.List<Parent> parents = mothers;
+            fail();
         } catch (ArrayStoreException ignored) {
 
         }

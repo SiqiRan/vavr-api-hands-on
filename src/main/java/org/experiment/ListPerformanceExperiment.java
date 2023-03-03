@@ -1,17 +1,21 @@
-package org.dataStructures;
+package org.experiment;
 
 import io.vavr.collection.List;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+@Getter
+@Setter
 public class ListPerformanceExperiment {
-    List<String> vavrList = List.of("one", "two", "three");
-    java.util.List<String> arrayList = new ArrayList<>(Arrays.asList("one", "two", "three"));
-    java.util.List<String> linkedList = new LinkedList<>(Arrays.asList("one", "two", "three"));
+    private List<String> vavrList = List.of("one", "two", "three");
+    private java.util.List<String> arrayList = new ArrayList<>(Arrays.asList("one", "two", "three"));
+    private java.util.List<String> linkedList = new LinkedList<>(Arrays.asList("one", "two", "three"));
 
-    void insertionEfficiency() {
+    public void insertionEfficiency() {
         long n = 1000;
         long startTime = System.nanoTime();
         //10000 times insertion in vavrList
