@@ -58,20 +58,24 @@ public class Execution {
     }
 
     private void executeWithOneParam(Object param) throws InvocationTargetException, IllegalAccessException {
-        if (methodName.endsWith("middle")) {
-            param = modify(param);
-        }
         for (long i = 0; i < this.times; i++) {
-            method.invoke(dataStructure, param);
+            if (methodName.endsWith("middle")) {
+                method.invoke(dataStructure, (int) i / 2);
+            } else {
+                method.invoke(dataStructure, param);
+            }
         }
     }
 
     private void executeWithTwoParams(Object param, Object param1) throws InvocationTargetException, IllegalAccessException {
-        if (methodName.endsWith("middle")) {
-            param = modify(param);
-        }
-        for (long i = 0; i < this.times; i++) {
-            method.invoke(dataStructure, param, param1);
+        for (int i = 0; i < this.times; i++) {
+            if (methodName.endsWith("middle")) {
+                method.invoke(dataStructure, i / 2, param1);
+            } else if (methodName.endsWith("tail")) {
+                method.invoke(dataStructure, i, param1);
+            } else {
+                method.invoke(dataStructure, param, param1);
+            }
         }
     }
 
