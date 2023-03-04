@@ -20,6 +20,7 @@ class ListPropertiesExperimentTest {
         ListPropertiesExperiment listPropertiesExperiment = new ListPropertiesExperiment();
         try {
             List<Parent> vavrList = listPropertiesExperiment.getVavrList();
+            logger.info(vavrList.getClass().getInterfaces());
             vavrList = vavrList.append(new Mother());
             vavrList = vavrList.append(new Father());
             logger.info(vavrList.combinations());
