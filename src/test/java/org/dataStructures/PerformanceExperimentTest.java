@@ -17,6 +17,8 @@ class PerformanceExperimentTest {
 
     ArrayList<Integer> arrayList = new ArrayList<>();
     ArrayList<Object> headList = new ArrayList<>(Collections.singletonList(0));
+    ArrayList<Object> middleList = new ArrayList<>(Collections.singletonList(500));
+    ArrayList<Object> middleListWithParam = new ArrayList<>(Arrays.asList(500, 1));
     ArrayList<Object> twoParamsList = new ArrayList<>(Arrays.asList(0, 1));
     List<Execution> javaExecutionList = new ArrayList<>();
     List<Execution> vavrExecutionList = new ArrayList<>();
@@ -75,5 +77,29 @@ class PerformanceExperimentTest {
         }
     }
 
+
+    @Test
+    void testQueryPerformance() throws InvocationTargetException, IllegalAccessException {
+        for (long i = 0; i < TIMES; i++) {
+            vavrList = vavrList.append(1);
+        }
+        for (long l = 0; l < TIMES; l++) {
+            arrayList.add(1);
+        }
+        new Execution("get", middleList, arrayList, TIMES).execute();
+        new Execution("get", middleList, vavrList, TIMES).execute();
+    }
+
+    @Test
+    void testModifyPerformance() throws InvocationTargetException, IllegalAccessException {
+        for (long i = 0; i < TIMES; i++) {
+            vavrList = vavrList.append(1);
+        }
+        for (long l = 0; l < TIMES; l++) {
+            arrayList.add(1);
+        }
+        new Execution("modify", middleListWithParam, arrayList, TIMES).execute();
+        new Execution("modify", middleListWithParam, vavrList, TIMES).execute();
+    }
 
 }
