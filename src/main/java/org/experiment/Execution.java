@@ -31,7 +31,7 @@ public class Execution {
         methodResultSerializable = Serializable.class.isAssignableFrom(method.getReturnType());
     }
 
-    public void execute() throws InvocationTargetException, IllegalAccessException {
+    public Serializable execute() throws InvocationTargetException, IllegalAccessException {
         long startTime = System.nanoTime();
         switch (method.getParameterCount()) {
             case 0:
@@ -52,6 +52,7 @@ public class Execution {
         long endTime = System.nanoTime();
         long totalTime = endTime - startTime;
         logger.info(String.format("%s structure spends %s nano seconds in %s times of %s operation", dataStructure.getClass(), totalTime, times, methodName));
+        return dataStructure;
     }
 
 
@@ -87,8 +88,14 @@ public class Execution {
 
     private void executeWithOneParam(Object param) throws InvocationTargetException, IllegalAccessException {
         for (int i = 0; i < this.times; i++) {
-            if (methodName.endsWith("middle")) {
+            if (methodName.endsWith("insert middle")) {
                 executeWithOneParamByClass(i / 2);
+            } else if (methodName.endsWith("remove middle")) {
+                executeWithOneParamByClass((int) (times - i) / 2);
+            } else if (methodName.endsWith("insert tail")) {
+                executeWithOneParamByClass(i);
+            } else if (methodName.endsWith("remove tail")) {
+                executeWithOneParamByClass((int) (times - i) - 1);
             } else {
                 executeWithOneParamByClass(param);
             }
@@ -97,10 +104,14 @@ public class Execution {
 
     private void executeWithTwoParams(Object param, Object param1) throws InvocationTargetException, IllegalAccessException {
         for (int i = 0; i < this.times; i++) {
-            if (methodName.endsWith("middle")) {
+            if (methodName.endsWith("insert middle")) {
                 executeWithTwoParamsByClass(i / 2, param1);
-            } else if (methodName.endsWith("tail")) {
+            } else if (methodName.endsWith("remove middle")) {
+                executeWithTwoParamsByClass((int) (times - i) / 2, param1);
+            } else if (methodName.endsWith("insert tail")) {
                 executeWithTwoParamsByClass(i, param1);
+            } else if (methodName.endsWith("remove tail")) {
+                executeWithTwoParamsByClass((int) (times - i) - 1, param1);
             } else {
                 executeWithTwoParamsByClass(param, param1);
             }
