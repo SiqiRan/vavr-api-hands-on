@@ -28,15 +28,8 @@ class PerformanceExperimentTest {
     void setUp() {
         arrayList.clear();
         vavrList = io.vavr.collection.List.of();
-        javaExecutionList.add(new Execution("insert head", headList, arrayList, TIMES));
-        javaExecutionList.add(new Execution("insert middle", twoParamsList, arrayList, TIMES));
-        javaExecutionList.add(new Execution("insert tail", twoParamsList, arrayList, TIMES));
-        javaExecutionList.add(new Execution("remove head", headList, arrayList, TIMES));
-        javaExecutionList.add(new Execution("remove middle", headList, arrayList, TIMES));
-        javaExecutionList.add(new Execution("remove tail", headList, arrayList, TIMES));
-        vavrExecutionList.add(new Execution("insert head", headList, vavrList, TIMES));
-        vavrExecutionList.add(new Execution("insert middle", twoParamsList, vavrList, TIMES));
-        vavrExecutionList.add(new Execution("insert tail", twoParamsList, vavrList, TIMES));
+        javaExecutionList.clear();
+        vavrExecutionList.clear();
     }
 
     @AfterEach
@@ -45,6 +38,12 @@ class PerformanceExperimentTest {
 
     @Test
     void testInsertPerformance() throws InvocationTargetException, IllegalAccessException {
+        javaExecutionList.add(new Execution("insert head", headList, arrayList, TIMES));
+        javaExecutionList.add(new Execution("insert middle", twoParamsList, arrayList, TIMES));
+        javaExecutionList.add(new Execution("insert tail", twoParamsList, arrayList, TIMES));
+        vavrExecutionList.add(new Execution("insert head", headList, vavrList, TIMES));
+        vavrExecutionList.add(new Execution("insert middle", twoParamsList, vavrList, TIMES));
+        vavrExecutionList.add(new Execution("insert tail", twoParamsList, vavrList, TIMES));
         for (int i = 0; i < 3; i++) {
             arrayList.clear();
             List<Integer> arrayListResult = (List<Integer>) javaExecutionList.get(i).execute();
@@ -59,10 +58,13 @@ class PerformanceExperimentTest {
         for (long l = 0; l < TIMES; l++) {
             vavrList = vavrList.append(1);
         }
+        javaExecutionList.add(new Execution("remove head", headList, arrayList, TIMES));
+        javaExecutionList.add(new Execution("remove middle", headList, arrayList, TIMES));
+        javaExecutionList.add(new Execution("remove tail", headList, arrayList, TIMES));
         vavrExecutionList.add(new Execution("remove head", headList, vavrList, TIMES));
         vavrExecutionList.add(new Execution("remove middle", headList, vavrList, TIMES));
         vavrExecutionList.add(new Execution("remove tail", headList, vavrList, TIMES));
-        for (int i = 3; i < 6; i++) {
+        for (int i = 0; i < 3; i++) {
             for (long l = 0; l < TIMES; l++) {
                 arrayList.add(1);
             }
