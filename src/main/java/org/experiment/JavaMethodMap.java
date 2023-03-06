@@ -22,9 +22,9 @@ public class JavaMethodMap {
 
     static {
         try {
-            javaMethodMapImplementation.put("insert head", List.class.getMethod("add", Object.class));
+            javaMethodMapImplementation.put("insert head", List.class.getMethod("add", int.class, Object.class));
             javaMethodMapImplementation.put("insert middle", List.class.getMethod("add", int.class, Object.class));
-            javaMethodMapImplementation.put("insert tail", List.class.getMethod("add", int.class, Object.class));
+            javaMethodMapImplementation.put("insert tail", List.class.getMethod("add", Object.class));
             javaMethodMapImplementation.put("remove head", List.class.getMethod("remove", int.class));
             javaMethodMapImplementation.put("remove middle", List.class.getMethod("remove", int.class));
             javaMethodMapImplementation.put("remove tail", List.class.getMethod("remove", int.class));

@@ -6,32 +6,34 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PerformanceExperimentTest {
 
     ArrayList<Integer> arrayList = new ArrayList<>();
-    ArrayList<Object> headList = new ArrayList<>(Collections.singletonList(0));
-    ArrayList<Object> middleList = new ArrayList<>(Collections.singletonList(500));
-    ArrayList<Object> middleListWithParam = new ArrayList<>(Arrays.asList(500, 1));
-    ArrayList<Object> twoParamsList = new ArrayList<>(Arrays.asList(0, 1));
-    List<Execution> javaExecutionList = new ArrayList<>();
-    List<Execution> vavrExecutionList = new ArrayList<>();
+    LinkedList<Integer> linkedList = new LinkedList<>();
     io.vavr.collection.List<Integer> vavrList = io.vavr.collection.List.of();
+    ArrayList<Object> headList = new ArrayList<>(Collections.singletonList(0));
+    ArrayList<Object> twoParamsList = new ArrayList<>(Arrays.asList(0, 1));
+    List<Execution> arrayExecutionList = new ArrayList<>();
+    List<Execution> linkedExecutionList = new LinkedList<>();
+    List<Execution> vavrExecutionList = new ArrayList<>();
 
-    long TIMES = 1000;
+    long TIMES = 50000;
 
     @BeforeEach
     void setUp() {
+        clearAllDataStructure();
+        arrayExecutionList.clear();
+        vavrExecutionList.clear();
+    }
+
+    private void clearAllDataStructure() {
+        linkedList.clear();
         arrayList.clear();
         vavrList = io.vavr.collection.List.of();
-        javaExecutionList.clear();
-        vavrExecutionList.clear();
     }
 
     @AfterEach
@@ -40,16 +42,22 @@ class PerformanceExperimentTest {
 
     @Test
     void testInsertPerformance() throws InvocationTargetException, IllegalAccessException {
-        javaExecutionList.add(new Execution("insert head", headList, arrayList, TIMES));
-        javaExecutionList.add(new Execution("insert middle", twoParamsList, arrayList, TIMES));
-        javaExecutionList.add(new Execution("insert tail", twoParamsList, arrayList, TIMES));
+        arrayExecutionList.add(new Execution("insert head", twoParamsList, arrayList, TIMES));
+        arrayExecutionList.add(new Execution("insert middle", twoParamsList, arrayList, TIMES));
+        arrayExecutionList.add(new Execution("insert tail", headList, arrayList, TIMES));
+        linkedExecutionList.add(new Execution("insert head", twoParamsList, linkedList, TIMES));
+        linkedExecutionList.add(new Execution("insert middle", twoParamsList, linkedList, TIMES));
+        linkedExecutionList.add(new Execution("insert tail", headList, linkedList, TIMES));
         vavrExecutionList.add(new Execution("insert head", headList, vavrList, TIMES));
         vavrExecutionList.add(new Execution("insert middle", twoParamsList, vavrList, TIMES));
-        vavrExecutionList.add(new Execution("insert tail", twoParamsList, vavrList, TIMES));
+        vavrExecutionList.add(new Execution("insert tail", headList, vavrList, TIMES));
         for (int i = 0; i < 3; i++) {
             arrayList.clear();
-            List<Integer> arrayListResult = (List<Integer>) javaExecutionList.get(i).execute();
+            linkedList.clear();
+            List<Integer> linkedListResult = (List<Integer>) linkedExecutionList.get(i).execute();
+            List<Integer> arrayListResult = (List<Integer>) arrayExecutionList.get(i).execute();
             io.vavr.collection.List<Integer> vavrListResult = (io.vavr.collection.List<Integer>) vavrExecutionList.get(i).execute();
+            assertEquals(linkedListResult.size(), TIMES);
             assertEquals(arrayListResult.size(), TIMES);
             assertEquals(vavrListResult.length(), TIMES);
         }
@@ -60,9 +68,12 @@ class PerformanceExperimentTest {
         for (long l = 0; l < TIMES; l++) {
             vavrList = vavrList.append(1);
         }
-        javaExecutionList.add(new Execution("remove head", headList, arrayList, TIMES));
-        javaExecutionList.add(new Execution("remove middle", headList, arrayList, TIMES));
-        javaExecutionList.add(new Execution("remove tail", headList, arrayList, TIMES));
+        arrayExecutionList.add(new Execution("remove head", twoParamsList, arrayList, TIMES));
+        arrayExecutionList.add(new Execution("remove middle", twoParamsList, arrayList, TIMES));
+        arrayExecutionList.add(new Execution("remove tail", headList, arrayList, TIMES));
+        linkedExecutionList.add(new Execution("remove head", twoParamsList, linkedList, TIMES));
+        linkedExecutionList.add(new Execution("remove middle", twoParamsList, linkedList, TIMES));
+        linkedExecutionList.add(new Execution("remove tail", headList, linkedList, TIMES));
         vavrExecutionList.add(new Execution("remove head", headList, vavrList, TIMES));
         vavrExecutionList.add(new Execution("remove middle", headList, vavrList, TIMES));
         vavrExecutionList.add(new Execution("remove tail", headList, vavrList, TIMES));
@@ -70,10 +81,15 @@ class PerformanceExperimentTest {
             for (long l = 0; l < TIMES; l++) {
                 arrayList.add(1);
             }
-            List<Integer> arrayListResult = (List<Integer>) javaExecutionList.get(i).execute();
+            for (long l = 0; l < TIMES; l++) {
+                linkedList.add(1);
+            }
+            List<Integer> linkedListResult = (List<Integer>) linkedExecutionList.get(i).execute();
+            List<Integer> arrayListResult = (List<Integer>) arrayExecutionList.get(i).execute();
             io.vavr.collection.List<Integer> vavrListResult = (io.vavr.collection.List<Integer>) vavrExecutionList.get(i).execute();
             assertEquals(arrayListResult.size(), 0);
             assertEquals(vavrListResult.length(), 0);
+            assertEquals(linkedListResult.size(), 0);
         }
     }
 
@@ -86,8 +102,8 @@ class PerformanceExperimentTest {
         for (long l = 0; l < TIMES; l++) {
             arrayList.add(1);
         }
-        new Execution("get", middleList, arrayList, TIMES).execute();
-        new Execution("get", middleList, vavrList, TIMES).execute();
+        new Execution("get", twoParamsList, arrayList, TIMES).execute();
+        new Execution("get", twoParamsList, vavrList, TIMES).execute();
     }
 
     @Test
@@ -98,8 +114,8 @@ class PerformanceExperimentTest {
         for (long l = 0; l < TIMES; l++) {
             arrayList.add(1);
         }
-        new Execution("modify", middleListWithParam, arrayList, TIMES).execute();
-        new Execution("modify", middleListWithParam, vavrList, TIMES).execute();
+        new Execution("modify", twoParamsList, arrayList, TIMES).execute();
+        new Execution("modify", twoParamsList, vavrList, TIMES).execute();
     }
 
 }
